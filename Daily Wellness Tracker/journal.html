@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>📝 Daily Journal | MoodRx</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      background: linear-gradient(to right, #e0f7fa, #fffde7);
+      font-family: 'Quicksand', sans-serif;
+      color: #333;
+    }
+
+    .header {
+      text-align: center;
+      padding: 3rem 1rem 2rem;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(5px);
+      border-bottom: 3px solid #fce4ec;
+    }
+
+    .quote-card {
+      background: #fff8e1;
+      border-left: 5px solid #ffd54f;
+      padding: 1rem 1.5rem;
+      margin-bottom: 2rem;
+      border-radius: 8px;
+    }
+
+    .prompt-card {
+      background: #fce4ec;
+      border-left: 5px solid #f06292;
+      padding: 1rem 1.5rem;
+      border-radius: 8px;
+    }
+
+    .journal-form textarea {
+      border-radius: 8px;
+      resize: none;
+    }
+
+    .submit-btn {
+      background-color: #4db6ac;
+      color: white;
+      transition: all 0.3s ease;
+    }
+
+    .submit-btn:hover {
+      background-color: #00897b;
+    }
+
+    .card-style {
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .floating-bubble {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #ffd54f;
+      padding: 1rem;
+      border-radius: 50%;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      cursor: pointer;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1 class="fw-bold text-primary">📝 Daily Journal</h1>
+    <p class="fs-5 text-muted">Track your thoughts, reflect, and grow — one day at a time ✨</p>
+  </div>
+
+  <div class="container my-4">
+    <div class="row g-4">
+      <div class="col-md-6">
+        <div class="quote-card card-style">
+          <h5>🌟 Quote of the Day</h5>
+          <p id="dailyQuote">“You do not find the happy life. You make it.” — Camilla Eyring Kimball</p>
+        </div>
+        <div class="prompt-card card-style">
+          <h5>✍️ Prompt of the Day</h5>
+          <p id="dailyPrompt">What’s one thing you’re grateful for today?</p>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <form class="journal-form card p-4 card-style">
+          <h5 class="mb-3">🖋️ Write your journal entry</h5>
+          <textarea rows="10" class="form-control mb-3" placeholder="Start writing your thoughts here..."></textarea>
+          <button type="submit" class="btn submit-btn w-100">Save Entry</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating AI Bubble (Future AI Copilot Suggestion Feature) -->
+  <div class="floating-bubble" title="AI Copilot Coming Soon 💡">🤖</div>
+
+  <script>
+    // Optional: Rotate quote and prompt randomly (API/Dynamic Future)
+    const quotes = [
+      "“Believe you can and you're halfway there.” – Theodore Roosevelt",
+      "“Be yourself; everyone else is already taken.” – Oscar Wilde",
+      "“Happiness depends upon ourselves.” – Aristotle",
+      "“The best way out is always through.” – Robert Frost",
+      "“It's okay to not be okay. Just don’t stay there.”"
+    ];
+
+    const prompts = [
+      "What made you smile today?",
+      "How are you really feeling right now?",
+      "What’s one small win you had today?",
+      "Is there a moment you want to remember from today?",
+      "What do you need to let go of before bed?"
+    ];
+
+    document.getElementById('dailyQuote').innerText = quotes[Math.floor(Math.random() * quotes.length)];
+    document.getElementById('dailyPrompt').innerText = prompts[Math.floor(Math.random() * prompts.length)];
+  </script>
+
+</body>
+</html>

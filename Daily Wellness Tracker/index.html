@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WellnessTracker - Your Wellness Journey Starts Here</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background-color: #f2f8f9;
+      color: #333;
+    }
+    .navbar-brand img {
+      height: 60px;
+      margin-right: 12px;
+    }
+    .navbar-nav .nav-link {
+      font-weight: 600;
+      color: #0d6efd;
+    }
+    .navbar-nav .nav-link:hover {
+      color: #0a58ca;
+      text-decoration: underline;
+    }
+    .slogan {
+      font-size: 1rem;
+      color: #6c757d;
+      font-style: italic;
+    }
+    .carousel-item img {
+      height: 600px;
+      object-fit: cover;
+      width: 100%;
+    }
+    .carousel-caption {
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 1rem 2rem;
+      border-radius: 12px;
+      animation: fadeInUp 1s ease-in-out;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .feature-icon {
+      font-size: 40px;
+      color: #0d6efd;
+      transition: transform 0.3s;
+    }
+    .feature-card {
+      border-radius: 15px;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      background: #ffffff;
+    }
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      background: #e3f2fd;
+    }
+    .feature-icon:hover {
+      transform: scale(1.3);
+    }
+    .tips-list li {
+      transition: all 0.3s ease-in-out;
+    }
+    .tips-list li:hover {
+      background: #e2f0f9;
+      transform: scale(1.02);
+    }
+    footer {
+      background-color: #f8f9fa;
+    }
+    .shadow:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  }
+  #contactForm input:focus,
+  #contactForm textarea:focus {
+    border-color: #28a745;
+    box-shadow: 0 0 8px rgba(40, 167, 69, 0.25);
+  }
+
+  #contactForm {
+    animation: fadeInUp 0.6s ease-in-out;
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .timeline::before {
+  content: "";
+  position: absolute;
+  left: 18px;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background-color: #c8e6c9;
+  z-index: 0;
+  border-radius: 2px;
+}
+
+.timeline-item {
+  position: relative;
+  z-index: 1;
+}
+
+.timeline-icon {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  position: relative;
+  z-index: 2;
+}
+/* Make specific navbar links white */
+.navbar-nav .nav-link,
+.navbar-nav .btn-outline-light {
+  color: #ffffff !important;
+}
+
+/* Hover effect with lighter white */
+.navbar-nav .nav-link:hover,
+.navbar-nav .btn-outline-light:hover {
+  color: #dcdcdc !important;
+}
+.navbar-nav .btn-outline-light:hover {
+  color: #000000 !important;
+  background-color: #e0e0e0 !important; /* optional: subtle light background on hover */
+}
+
+/* Dropdown items keep dark text for readability */
+.dropdown-menu .dropdown-item {
+  color: #0d47a1;
+}
+
+/* Dropdown item hover */
+.dropdown-menu .dropdown-item:hover {
+  background-color: #bbdefb;
+  color: #0d47a1;
+}
+    body, main, .container {
+    padding-top: 15px; /* adjust based on navbar height */
+  }
+  #wellnessCarousel {
+  padding: 60px;
+  box-sizing: border-box; /* ensures padding doesn’t break layout */
+}
+body {
+  padding-top: 70px; /* space for navbar */
+}
+  </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light shadow-sm fixed-top" style="background-color: #0d47a1;">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center text-white" href="#">
+      <img src="logo.jpg" alt="Wellness Tracker Logo" style="height: 45px; margin-right: 12px; border-radius: 6px; box-shadow: 0 2px 6px rgba(255, 255, 255, 0.3);">
+      <div>
+        <strong style="font-size: 1.3rem; letter-spacing: 1px;">WellnessTracker</strong>
+        <small class="d-block" style="font-style: italic; font-weight: 600; letter-spacing: 0.5px; color: #bbdefb;">Feel Better, Live Brighter.</small>
+      </div>
+    </a>
+
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarPro" aria-controls="navbarPro" aria-expanded="false" aria-label="Toggle navigation" style="filter: drop-shadow(0 1px 1px rgba(255, 255, 255, 0.5));">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarPro">
+      <ul class="navbar-nav ms-auto align-items-center gap-3" style="font-weight: 600; letter-spacing: 0.5px; font-size: 0.9rem;">
+        <li class="nav-item">
+          <a class="nav-link text-light fw-semibold" href="#features" style="position: relative;">
+            ✨ Features
+            <span class="nav-underline"></span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-light fw-semibold" href="#tips" style="position: relative;">
+            💡 Tips
+            <span class="nav-underline"></span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-light fw-semibold" href="#about" style="position: relative;">
+            📘 About
+            <span class="nav-underline"></span>
+          </a>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle btn btn-outline-light fw-semibold px-3 py-1 rounded-pill" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="transition: all 0.3s ease; font-size: 0.9rem;">
+            🔍 Explore Pages
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end shadow-lg rounded-3 border-0" style="min-width: 220px; font-weight: 500; letter-spacing: 0.4px; font-size: 0.9rem;">
+            <li><a class="dropdown-item" href="tracker.html">Dashboard</a></li>
+            <li><a class="dropdown-item" href="mood.html">Mood Tracker</a></li>
+            <li><a class="dropdown-item" href="water.html">Water Intake</a></li>
+            <li><a class="dropdown-item" href="sleep.html">Sleep Log</a></li>
+            <li><a class="dropdown-item" href="meditation.html">Meditation</a></li>
+            <li><a class="dropdown-item" href="journal.html">Daily Journal</a></li>
+            <li><a class="dropdown-item" href="goals.html">Goal Setting</a></li>
+            <li><a class="dropdown-item" href="analytics.html">Analytics</a></li>
+            <li><a class="dropdown-item" href="profile.html">Profile</a></li>
+            <li><a class="dropdown-item" href="settings.html">Settings</a></li>
+            <li><a class="dropdown-item" href="about.html">About</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+  </nav>
+
+  <!-- Slideshow Carousel -->
+  <div id="wellnessCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="sleep-rest.jpg" class="d-block w-100" alt="Sleep Rest">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Sleep & Recharge</h5>
+          <p>Track your sleep and build a restful bedtime routine 🌙</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="mood.jpg" class="d-block w-100" alt="Mood Tracker">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Daily Mood Reflection</h5>
+          <p>Recognize your feelings and track emotional patterns 😄</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="hydration.jpg" class="d-block w-100" alt="Hydration">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Stay Hydrated</h5>
+          <p>Drink more water and feel refreshed 💧</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="meditation.jpg" class="d-block w-100" alt="Meditation">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Peaceful Meditation</h5>
+          <p>Practice mindfulness and reduce stress 🧘‍♀️</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="goal-setting.jpg" class="d-block w-100" alt="Goal Setting">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Set Healthy Goals</h5>
+          <p>Stay motivated and focused on your personal growth 🎯</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="daily.jpg" class="d-block w-100" alt="Daily Journal">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Write Your Story</h5>
+          <p>Reflect on your journey and document your wins 📓</p>
+        </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#wellnessCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#wellnessCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+
+  <section id="features" class="container py-5">
+    <h2 class="text-center mb-5 text-primary">🌟 Key Features</h2>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card p-4 text-center feature-card shadow-sm">
+          <div class="feature-icon mb-3">😄</div>
+          <h5>Mood Tracking</h5>
+          <p>Log your emotions daily to notice patterns and improve mental wellness.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card p-4 text-center feature-card shadow-sm">
+          <div class="feature-icon mb-3">💧</div>
+          <h5>Hydration Monitor</h5>
+          <p>Track your daily water intake with ease and stay hydrated!</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card p-4 text-center feature-card shadow-sm">
+          <div class="feature-icon mb-3">🛌</div>
+          <h5>Sleep Logging</h5>
+          <p>Analyze your sleep habits and get the rest your body needs.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card p-4 text-center feature-card shadow-sm">
+          <div class="feature-icon mb-3">🧘‍♂️</div>
+          <h5>Meditation Minutes</h5>
+          <p>Track how much mindfulness time you invest daily.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card p-4 text-center feature-card shadow-sm">
+          <div class="feature-icon mb-3">📓</div>
+          <h5>Daily Journal</h5>
+          <p>Express yourself freely, write your thoughts and reflections each day.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card p-4 text-center feature-card shadow-sm">
+          <div class="feature-icon mb-3">🎯</div>
+          <h5>Goals & Analytics</h5>
+          <p>Set healthy goals and track your progress with simple, elegant charts.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<section id="tips" class="py-5" style="background: linear-gradient(to right, #e3f2fd, #e8f5e9);">
+  <div class="container">
+    <h2 class="text-center text-success fw-bold mb-5">💡 Daily Wellness Tips</h2>
+
+    <div class="row">
+      <div class="col-md-10 mx-auto">
+        <ul class="timeline list-unstyled position-relative">
+          <!-- Tip 1 -->
+          <li class="timeline-item d-flex mb-5">
+            <div class="timeline-icon bg-warning text-white shadow-sm me-4">
+              ✨
+            </div>
+            <div class="timeline-content bg-white p-4 rounded shadow-sm w-100">
+              <h5 class="fw-semibold mb-2">Start Your Day with Gratitude</h5>
+              <p class="mb-0 text-muted">Write down 3 things you're thankful for each morning to boost positivity.</p>
+            </div>
+          </li>
+
+          <!-- Tip 2 -->
+          <li class="timeline-item d-flex mb-5">
+            <div class="timeline-icon bg-info text-white shadow-sm me-4">
+              💧
+            </div>
+            <div class="timeline-content bg-white p-4 rounded shadow-sm w-100">
+              <h5 class="fw-semibold mb-2">Stay Hydrated</h5>
+              <p class="mb-0 text-muted">Drink 2–3 liters of water daily to keep your energy and focus high.</p>
+            </div>
+          </li>
+
+          <!-- Tip 3 -->
+          <li class="timeline-item d-flex mb-5">
+            <div class="timeline-icon bg-danger text-white shadow-sm me-4">
+              📴
+            </div>
+            <div class="timeline-content bg-white p-4 rounded shadow-sm w-100">
+              <h5 class="fw-semibold mb-2">Take Breaks from Screens</h5>
+              <p class="mb-0 text-muted">Look away from your screen every hour for 5 minutes to reduce eye strain.</p>
+            </div>
+          </li>
+
+          <!-- Tip 4 -->
+          <li class="timeline-item d-flex mb-5">
+            <div class="timeline-icon bg-primary text-white shadow-sm me-4">
+              🌙
+            </div>
+            <div class="timeline-content bg-white p-4 rounded shadow-sm w-100">
+              <h5 class="fw-semibold mb-2">Maintain Sleep Routine</h5>
+              <p class="mb-0 text-muted">Go to bed and wake up at the same time every day for better rest.</p>
+            </div>
+          </li>
+
+          <!-- Tip 5 -->
+          <li class="timeline-item d-flex">
+            <div class="timeline-icon bg-success text-white shadow-sm me-4">
+              🧘‍♀️
+            </div>
+            <div class="timeline-content bg-white p-4 rounded shadow-sm w-100">
+              <h5 class="fw-semibold mb-2">Meditate Daily</h5>
+              <p class="mb-0 text-muted">Spend 10 minutes in silence or guided meditation to center your mind.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <!-- Additional Sections Start -->
+
+  <!-- Testimonials Section -->
+  <section class="py-5" style="background: linear-gradient(to right, lavender, #f1f8e9);">
+  <div class="container">
+    <h2 class="text-center text-primary fw-bold mb-5" style="font-size: 2.2rem;">🗣️ What Users Say</h2>
+    <div class="row g-4">
+      <!-- Testimonial 1 -->
+      <div class="col-md-4">
+        <div class="bg-white rounded-4 shadow p-4 h-100 position-relative" style="transition: transform 0.3s;">
+          <div class="mb-3">
+            <span class="fs-2 text-info">💬</span>
+          </div>
+          <p class="fst-italic text-muted">“This app helped me finally stay consistent with journaling and sleep. I feel more in control.”</p>
+          <hr class="mt-4 mb-2" />
+          <strong class="text-dark">— Aarti, Student</strong>
+        </div>
+      </div>
+      
+      <!-- Testimonial 2 -->
+      <div class="col-md-4">
+        <div class="bg-white rounded-4 shadow p-4 h-100 position-relative" style="transition: transform 0.3s;">
+          <div class="mb-3">
+            <span class="fs-2 text-success">💧</span>
+          </div>
+          <p class="fst-italic text-muted">“Hydration tracking alone changed my energy levels. Super simple, super powerful!”</p>
+          <hr class="mt-4 mb-2" />
+          <strong class="text-dark">— Ravi, Software Engineer</strong>
+        </div>
+      </div>
+
+      <!-- Testimonial 3 -->
+      <div class="col-md-4">
+        <div class="bg-white rounded-4 shadow p-4 h-100 position-relative" style="transition: transform 0.3s;">
+          <div class="mb-3">
+            <span class="fs-2 text-warning">🌈</span>
+          </div>
+          <p class="fst-italic text-muted">“Mood logs made me realize patterns I ignored before. Game changer for my mental health.”</p>
+          <hr class="mt-4 mb-2" />
+          <strong class="text-dark">— Neha, Designer</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <!-- FAQ Section -->
+  <section class="container py-5">
+  <h2 class="text-center mb-5 fw-bold text-white py-3 rounded" style="background: linear-gradient(to right, #00b4d8, #48cae4);">
+     Frequently Asked Questions
+  </h2>
+  <div class="accordion shadow-lg" id="faqAccordion" style="border-radius: 10px;">
+    
+    <!-- FAQ Item -->
+    <div class="accordion-item border-0 mb-3 rounded shadow-sm">
+      <h2 class="accordion-header" id="faqHeading1">
+        <button class="accordion-button collapsed bg-light fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+          🌟 What is WellnessTracker?
+        </button>
+      </h2>
+      <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+        <div class="accordion-body">
+          <p class="mb-0">WellnessTracker is your digital wellness companion — a web app built to improve your emotional, physical, and mental well-being through tools like mood tracking, journaling, meditation, hydration, sleep logs, and more.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Free to Use -->
+    <div class="accordion-item border-0 mb-3 rounded shadow-sm">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed bg-light fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+          💸 Is WellnessTracker free to use?
+        </button>
+      </h2>
+      <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+        <div class="accordion-body">
+          <p>Yes! It’s 100% free to use with no subscriptions. All features are accessible instantly — just open the dashboard and start tracking.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Account Requirement -->
+    <div class="accordion-item border-0 mb-3 rounded shadow-sm">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed bg-light fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+          🔐 Do I need to create an account?
+        </button>
+      </h2>
+      <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+        <div class="accordion-body">
+          <p>No sign-up is needed to explore features. However, account creation will be introduced soon to save progress, sync data, and personalize your journey.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Responsive -->
+    <div class="accordion-item border-0 mb-3 rounded shadow-sm">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed bg-light fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+          📱 Can I use it on mobile or tablet?
+        </button>
+      </h2>
+      <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+        <div class="accordion-body">
+          <p>Yes! The platform is fully responsive, built with Bootstrap 5, and optimized for mobile, tablet, and desktop devices.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Features -->
+    <div class="accordion-item border-0 mb-3 rounded shadow-sm">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed bg-light fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
+          🧩 What features does it include?
+        </button>
+      </h2>
+      <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+        <div class="accordion-body">
+          <ul class="mb-0 ps-3">
+            <li>🌈 Mood Tracker</li>
+            <li>💧 Hydration Monitor</li>
+            <li>😴 Sleep Log</li>
+            <li>🧘 Meditation Minutes</li>
+            <li>📓 Daily Journal</li>
+            <li>🎯 Goal Setting & Tracking</li>
+            <li>📊 Visual Progress Analytics</li>
+            <li>👤 Profile & Personalization</li>
+            <li>📚 Tips and Guided Wellness Content</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Track Usage -->
+    <div class="accordion-item border-0 mb-3 rounded shadow-sm">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed bg-light fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#faq6">
+          📝 How do I log my mood or sleep?
+        </button>
+      </h2>
+      <div id="faq6" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+        <div class="accordion-body">
+          <p>Use the dropdown under “Explore Pages” in the navbar and choose Mood or Sleep Tracker. Select your inputs and save in just a click!</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feedback -->
+    <div class="accordion-item border-0 mb-3 rounded shadow-sm">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed bg-light fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#faq7">
+          📬 Where can I give feedback?
+        </button>
+      </h2>
+      <div id="faq7" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+        <div class="accordion-body">
+          <p>We’re always open to feedback. Use the Contact section on the homepage or email us at <strong>support@wellnesstracker.app</strong>.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Upcoming -->
+    <div class="accordion-item border-0 mb-3 rounded shadow-sm">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed bg-light fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#faq8">
+          🚀 What’s coming next?
+        </button>
+      </h2>
+      <div id="faq8" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+        <div class="accordion-body">
+          <ul class="mb-0 ps-3">
+            <li>☁️ Cloud sync & login system</li>
+            <li>🗓️ Monthly goal planners</li>
+            <li>🎧 Guided meditation playlists</li>
+            <li>📈 Exportable wellness reports</li>
+            <li>🌙 Dark mode UI</li>
+            <li>🔔 Smart reminders & motivational nudges</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+  <!-- Contact Section -->
+<section id="contact" class="py-5" style="background: linear-gradient(to right, #f0f4ff, #e6fcf5);">
+  <div class="container">
+    <h2 class="text-center text-success mb-5 fw-bold">📬 Get in Touch</h2>
+    
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <form id="contactForm" class="bg-white shadow rounded p-4 p-md-5">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <input type="text" class="form-control form-control-lg" id="userName" placeholder="Your Name" required>
+            </div>
+            <div class="col-md-6">
+              <input type="email" class="form-control form-control-lg" id="email" placeholder="Your Email" required>
+            </div>
+            <div class="col-12">
+              <textarea class="form-control form-control-lg" id="message" rows="5" placeholder="Your Message" required></textarea>
+            </div>
+            <div class="col-12 text-center">
+              <button type="submit" class="btn btn-success btn-lg px-5">Send Message</button>
+            </div>
+            <div id="successAlert" class="alert alert-success mt-4 d-none text-center" role="alert">
+              ✅ Thank you! Your message has been submitted successfully.
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <section id="about" class="container py-5">
+    <div class="row align-items-center">
+      <div class="col-md-6">
+        <h2>About WellnessTracker</h2>
+        <p>WellnessTracker is a modern, interactive web app created to help you develop better lifestyle habits. It’s a simple yet powerful platform for anyone looking to improve their emotional, physical, and mental health one day at a time.</p>
+        <a href="about.html" class="btn btn-outline-primary mt-3">Read More</a>
+      </div>
+      <div class="col-md-6 text-center">
+        <img src="https://cdn-icons-png.flaticon.com/512/1160/1160032.png" alt="Wellness Illustration" class="img-fluid" style="max-height: 300px;">
+      </div>
+    </div>
+  </section>
+
+  <!-- Additional Sections End -->
+
+  <footer class="bg-white py-4 mt-5 border-top">
+    <div class="container text-center">
+      <p class="mb-1">&copy; 2025 WellnessTracker. Built with ❤️ to support your growth.</p>
+      <small>Designed by Krisha • Powered by Bootstrap 5</small>
+    </div>
+  </footer>
+
+<!-- BOOTSTRAP JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- CONTACT FORM JS -->
+<script>
+  document.getElementById("contactForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const name = document.getElementById("userName").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const message = document.getElementById("message").value.trim();
+
+    if (name && email && message) {
+      const contactData = {
+        name,
+        email,
+        message,
+        date: new Date().toLocaleString()
+      };
+
+      const messages = JSON.parse(localStorage.getItem("wellnessMessages")) || [];
+      messages.push(contactData);
+      localStorage.setItem("wellnessMessages", JSON.stringify(messages));
+
+      const successAlert = document.getElementById("successAlert");
+      successAlert.classList.remove("d-none");
+      this.reset();
+      setTimeout(() => successAlert.classList.add("d-none"), 3000);
+    }
+  });
+</script>
+
+</body>
+</html>

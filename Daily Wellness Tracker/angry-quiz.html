@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Angry Mood Quiz</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      background: linear-gradient(to right, #ffe0e0, #fff0f0);
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .quiz-container {
+      max-width: 850px;
+      margin: auto;
+      padding: 40px;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 0 12px rgba(255, 0, 0, 0.1);
+    }
+
+    .question {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #b71c1c;
+      margin-bottom: 15px;
+    }
+
+    .option {
+      border: 2px solid #ef5350;
+      padding: 12px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      background-color: #fff;
+      transition: 0.3s ease;
+    }
+
+    .option:hover {
+      background-color: #ffcdd2;
+      color: #000;
+      transform: scale(1.02);
+    }
+
+    .option.selected {
+      background-color: #ef9a9a;
+      border-color: #d32f2f;
+      color: #000;
+    }
+
+    #result {
+      margin-top: 30px;
+      padding: 25px;
+      border-radius: 12px;
+      background: #ffe5e5;
+      border-left: 6px solid #f44336;
+      display: none;
+    }
+
+    #result h4 {
+      color: #d32f2f;
+    }
+
+    a {
+      color: #b71c1c;
+      text-decoration: underline;
+    }
+
+    .btn-custom {
+      background-color: #f44336;
+      color: white;
+    }
+
+    .btn-custom:hover {
+      background-color: #c62828;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container my-5">
+    <div class="quiz-container">
+      <h2 class="text-center text-danger mb-4">😡 Angry Mood Quiz</h2>
+
+      <div id="quiz">
+        <div class="question" id="q1">1. How do you usually react when something doesn't go your way?</div>
+        <div class="option" data-type="angry" onclick="selectOption(this, 1)">I explode instantly 😤</div>
+        <div class="option" data-type="neutral" onclick="selectOption(this, 1)">I try to walk away</div>
+        <div class="option" data-type="cool" onclick="selectOption(this, 1)">I breathe and calm down</div>
+
+        <div class="question mt-4" id="q2">2. What’s your go-to phrase when you're mad?</div>
+        <div class="option" data-type="angry" onclick="selectOption(this, 2)">“I’m done with this!”</div>
+        <div class="option" data-type="neutral" onclick="selectOption(this, 2)">“Can we not?”</div>
+        <div class="option" data-type="cool" onclick="selectOption(this, 2)">“Let’s talk later.”</div>
+
+        <div class="question mt-4" id="q3">3. How does your body feel when angry?</div>
+        <div class="option" data-type="angry" onclick="selectOption(this, 3)">Tensed fists and clenched jaw</div>
+        <div class="option" data-type="neutral" onclick="selectOption(this, 3)">My heart races a little</div>
+        <div class="option" data-type="cool" onclick="selectOption(this, 3)">Just slightly irritated</div>
+      </div>
+
+      <div class="text-center mt-4">
+        <button class="btn btn-custom px-4" onclick="showResult()">Get My MoodRx</button>
+      </div>
+
+      <div id="result" class="mt-4">
+        <h4 class="mb-3">🔥 Your Anger Management Plan:</h4>
+        <div id="customResponse"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let answers = {};
+    let score = { angry: 0, neutral: 0, cool: 0 };
+
+    function selectOption(el, qNum) {
+      // Unselect other options
+      const options = document.querySelectorAll(`#q${qNum} ~ .option`);
+      options.forEach(opt => opt.classList.remove("selected"));
+
+      // Select current
+      el.classList.add("selected");
+
+      // Track answer
+      const moodType = el.getAttribute("data-type");
+      answers[qNum] = moodType;
+
+      // Reset scores
+      score = { angry: 0, neutral: 0, cool: 0 };
+      Object.values(answers).forEach(type => score[type]++);
+    }
+
+    function showResult() {
+      if (Object.keys(answers).length < 3) {
+        alert("Please answer all questions!");
+        return;
+      }
+
+      let responseHtml = "";
+
+      if (score.angry >= 2) {
+        responseHtml = `
+          <p><strong>😡 You’re running hot today!</strong></p>
+          <ul>
+            <li><strong>🎧 Playlist:</strong> <a href="https://open.spotify.com/playlist/3U2w5phzJgq8wmuFMy5mU6" target="_blank">Cool-Down Rap & LoFi Beats</a></li>
+            <li><strong>🧘 Breathwork:</strong> <a href="https://www.youtube.com/watch?v=SEfs5TJZ6Nk" target="_blank">Box Breathing – 4x4x4x4</a></li>
+            <li><strong>🕹️ Mini-Distraction Game:</strong> <a href="#">Tap-to-Pop Bubbles Game</a></li>
+            <li><strong>📓 Prompt:</strong> "What triggered you today and what would you say to yourself if you were calm?"</li>
+          </ul>`;
+      } else if (score.cool >= 2) {
+        responseHtml = `
+          <p><strong>🧊 You’re staying pretty chill — good job!</strong></p>
+          <ul>
+            <li><strong>🎵 Playlist:</strong> <a href="https://open.spotify.com/playlist/37i9dQZF1DX3YSRoSdA634" target="_blank">Chill Hits</a></li>
+            <li><strong>☁️ Visualization:</strong> <a href="https://www.youtube.com/watch?v=O-6f5wQXSu8" target="_blank">Floating Cloud Meditation</a></li>
+            <li><strong>🎨 Suggestion:</strong> Try a 5-min doodling session or stress ball!</li>
+          </ul>`;
+      } else {
+        responseHtml = `
+          <p><strong>🟡 You’re holding it together, but it’s okay to vent.</strong></p>
+          <ul>
+            <li><strong>🎧 Playlist:</strong> <a href="https://open.spotify.com/playlist/37i9dQZF1DWSqBruwoIXkA" target="_blank">Feel-Good Rage Vibes</a></li>
+            <li><strong>🧘 Mini-Meditation:</strong> <a href="https://www.youtube.com/watch?v=inpok4MKVLM" target="_blank">5 Min Anger Meditation</a></li>
+            <li><strong>🎮 Game:</strong> <a href="#">“Smash the Emoji” Reaction Game</a></li>
+            <li><strong>📓 Prompt:</strong> “What would you say if someone else was feeling what you're feeling now?”</li>
+          </ul>`;
+      }
+
+      document.getElementById("customResponse").innerHTML = responseHtml;
+      document.getElementById("result").style.display = "block";
+      window.scrollTo({ top: document.getElementById("result").offsetTop - 100, behavior: "smooth" });
+    }
+  </script>
+
+</body>
+</html>

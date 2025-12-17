@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hydro Glow Tracker</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+      color: #ffffff;
+      overflow: hidden;
+    }
+
+    .wave-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 200%;
+      height: 200%;
+      background: url('https://i.ibb.co/vHpdxs0/wave-animation.gif') repeat;
+      opacity: 0.05;
+      animation: drift 60s linear infinite;
+      z-index: -1;
+    }
+
+    @keyframes drift {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .container {
+      padding: 3rem;
+      text-align: center;
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 16px;
+      padding: 2rem;
+      margin: 1rem auto;
+      max-width: 400px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 0 15px #00ffe0;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: #00ffe0;
+      margin-bottom: 1rem;
+      text-shadow: 0 0 10px #00ffe0;
+    }
+
+    .progress-container {
+      width: 100%;
+      height: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      margin: 1rem 0;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #00ffe0, #00b3ff);
+      border-radius: 20px;
+      width: 0%;
+      transition: width 0.5s ease;
+      box-shadow: 0 0 10px #00ffe0;
+    }
+
+    .streak {
+      color: #fff;
+      margin: 1rem 0;
+      font-size: 1.2rem;
+      text-shadow: 0 0 5px #00b3ff;
+    }
+
+    .btn {
+      background: #00ffe0;
+      color: #000;
+      border: none;
+      padding: 0.8rem 2rem;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 1rem;
+      margin-top: 1rem;
+      box-shadow: 0 0 10px #00ffe0, inset 0 0 5px #00b3ff;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background: #00b3ff;
+    }
+
+    .popup {
+      margin-top: 2rem;
+      font-size: 1.5rem;
+      color: #ff00c8;
+      text-shadow: 0 0 10px #ff00c8;
+    }
+
+    .quote {
+      margin-top: 1rem;
+      color: #c1f2ff;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <div class="wave-bg"></div>
+
+  <div class="container">
+    <h1>Hydro Glow Tracker 💧</h1>
+
+    <div class="glass-card">
+      <p>Today’s Intake: <span id="ml">0</span> ml / 2000 ml</p>
+      <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+      <button class="btn" onclick="addWater()">+250ml</button>
+      <div class="streak">🔥 Streak: <span id="streak">3 days</span></div>
+    </div>
+
+    <div class="popup" id="popup">Hydrate or Dried-rate 💀</div>
+    <div class="quote" id="quote">“You’re 70% water. Don’t be 30% regret.”</div>
+  </div>
+
+  <script>
+    let intake = 0;
+    const mlGoal = 2000;
+    const mlDisplay = document.getElementById('ml');
+    const progressBar = document.getElementById('progressBar');
+    const popup = document.getElementById('popup');
+    const quote = document.getElementById('quote');
+
+    const quotes = [
+      "“You’re 70% water. Don’t be 30% regret.”",
+      "“Sip happens. Stay hydrated.”",
+      "“Water: because adulting is hard.”",
+      "“Don’t let your plants drink more than you.”"
+    ];
+
+    function addWater() {
+      if (intake < mlGoal) {
+        intake += 250;
+        mlDisplay.textContent = intake;
+        const percentage = (intake / mlGoal) * 100;
+        progressBar.style.width = `${percentage}%`;
+
+        popup.textContent = randomHydrationTip();
+        quote.textContent = quotes[Math.floor(Math.random() * quotes.length)];
+      }
+    }
+
+    function randomHydrationTip() {
+      const tips = [
+        "Hydrate or Dried-rate 💀",
+        "Keep chuggin’, hydration hero! 💪",
+        "Refill and chill 💧✨",
+        "One sip closer to greatness! 🌟"
+      ];
+      return tips[Math.floor(Math.random() * tips.length)];
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MoodRx – Digital Mood Prescription</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f0f4f8;
+      color: #333;
+      padding-top: 50px;
+    }
+    .mood-card {
+      background: #fff;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      transition: 0.3s;
+    }
+    .mood-card:hover {
+      transform: translateY(-5px);
+    }
+    .prescription {
+      background: #e3f2fd;
+      border-left: 6px solid #42a5f5;
+      padding: 15px 20px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+    .embed-player iframe {
+      width: 100%;
+      height: 80px;
+      border: none;
+      border-radius: 10px;
+    }
+    select {
+      font-size: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="text-center mb-5">
+    <h1 class="fw-bold text-primary">🧠 MoodRx – Your Digital Mood Prescription</h1>
+    <p class="lead">Select your mood to get your personalized emotional toolkit.</p>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="mood-card">
+        <div class="mb-4">
+          <label for="moodSelect" class="form-label">How are you feeling today?</label>
+          <select id="moodSelect" class="form-select">
+            <option value="">-- Select Mood --</option>
+            <option value="happy">😊 Happy</option>
+            <option value="sad">😢 Sad</option>
+            <option value="tired">😴 Tired</option>
+            <option value="anxious">😟 Anxious</option>
+            <option value="angry">😡 Angry</option>
+          </select>
+        </div>
+
+        <div id="resultContainer" class="mt-4 d-none">
+          <div class="prescription">
+            <h5>🎵 Music Playlist</h5>
+            <div class="embed-player" id="musicPlayer"></div>
+          </div>
+
+          <div class="prescription">
+            <h5>🧘‍♀️ Meditation Video</h5>
+            <a id="meditationLink" href="#" target="_blank" class="text-decoration-none">Watch Now on YouTube</a>
+          </div>
+
+          <div class="prescription">
+            <h5>💬 Motivational Quote</h5>
+            <blockquote id="quoteText" class="blockquote"></blockquote>
+          </div>
+
+          <div class="prescription">
+            <h5>✍️ Prompt of the Day</h5>
+            <p id="promptText"></p>
+          </div>
+
+          <div class="prescription">
+            <h5>🧪 Mood Quiz</h5>
+            <a id="quizLink" href="#" class="btn btn-outline-success btn-sm">Take Quiz</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const moodData = {
+    happy: {
+      music: 'https://open.spotify.com/embed/playlist/37i9dQZF1DXdPec7aLTmlC',
+      meditation: 'https://www.youtube.com/watch?v=ZToicYcHIOU',
+      quote: "Happiness is not something ready-made. It comes from your own actions. – Dalai Lama",
+      prompt: "What made you smile today?",
+      quiz: 'happy-quiz.html'
+    },
+    sad: {
+      music: 'https://open.spotify.com/embed/playlist/37i9dQZF1DX7qK8ma5wgG1',
+      meditation: 'https://www.youtube.com/watch?v=inpok4MKVLM',
+      quote: "This too shall pass. – Persian Proverb",
+      prompt: "What’s something kind you can do for yourself today?",
+      quiz: 'sad-quiz.html'
+    },
+    tired: {
+      music: 'https://open.spotify.com/embed/playlist/37i9dQZF1DWZd79rJ6a7lp',
+      meditation: 'https://www.youtube.com/watch?v=MIr3RsUWrdo',
+      quote: "Almost everything will work again if you unplug it for a few minutes… including you. – Anne Lamott",
+      prompt: "What’s draining your energy and how can you recharge?",
+      quiz: 'tired-quiz.html'
+    },
+    anxious: {
+      music: 'https://open.spotify.com/embed/playlist/37i9dQZF1DWUvZBXGjNCU4',
+      meditation: 'https://www.youtube.com/watch?v=O-6f5wQXSu8',
+      quote: "You don’t have to control your thoughts. You just have to stop letting them control you. – Dan Millman",
+      prompt: "What’s something you’re grateful for right now?",
+      quiz: 'anxious-quiz.html'
+    },
+    angry: {
+      music: 'https://open.spotify.com/embed/playlist/37i9dQZF1DWTyiBJ6yEqeu',
+      meditation: 'https://www.youtube.com/watch?v=92i5m3tV5XY',
+      quote: "For every minute you remain angry, you give up sixty seconds of peace of mind. – Ralph Waldo Emerson",
+      prompt: "What is causing this frustration, and how can you release it constructively?",
+      quiz: 'angry-quiz.html'
+    }
+  };
+
+  document.getElementById("moodSelect").addEventListener("change", function() {
+    const selectedMood = this.value;
+    const result = moodData[selectedMood];
+
+    if (result) {
+      document.getElementById("musicPlayer").innerHTML = `<iframe src="${result.music}" allow="encrypted-media"></iframe>`;
+      document.getElementById("meditationLink").href = result.meditation;
+      document.getElementById("quoteText").innerText = result.quote;
+      document.getElementById("promptText").innerText = result.prompt;
+      document.getElementById("quizLink").href = result.quiz;
+
+      document.getElementById("resultContainer").classList.remove("d-none");
+    } else {
+      document.getElementById("resultContainer").classList.add("d-none");
+    }
+  });
+</script>
+
+</body>
+</html>

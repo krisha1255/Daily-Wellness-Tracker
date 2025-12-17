@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mood Wellness Tracker</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      background: linear-gradient(120deg, #fdfbfb, #ebedee);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .tracker-container {
+      max-width: 900px;
+      margin: 50px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .tracker-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .entry {
+      background-color: #f9f9f9;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-left: 5px solid #17a2b8;
+      border-radius: 10px;
+      transition: all 0.3s;
+    }
+
+    .entry:hover {
+      transform: scale(1.01);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .filter-bar {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .mood-badge {
+      font-size: 14px;
+      padding: 5px 10px;
+      border-radius: 20px;
+      background-color: #ffc107;
+      color: #fff;
+    }
+
+    .no-entry-msg {
+      text-align: center;
+      color: #999;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="tracker-container">
+    <div class="tracker-header">
+      <h2 class="text-info"><i class="fa-solid fa-heart-pulse me-2"></i>Mood & Wellness Tracker</h2>
+      <p class="text-muted">Track your mood and wellness activity daily</p>
+    </div>
+
+    <!-- Filter Controls -->
+    <div class="filter-bar mb-4">
+      <input type="date" class="form-control w-auto" id="filterDate">
+      <select id="filterTime" class="form-select w-auto">
+        <option value="">Any Time</option>
+        <option value="morning">Morning</option>
+        <option value="afternoon">Afternoon</option>
+        <option value="evening">Evening</option>
+        <option value="night">Night</option>
+      </select>
+      <button class="btn btn-primary" onclick="applyFilter()">Filter</button>
+    </div>
+
+    <!-- Logs Container -->
+    <div id="logEntries">
+      <!-- Mood Logs Appear Here -->
+    </div>
+  </div>
+
+  <script>
+    // Sample dummy data
+    const moodLogs = [
+      {
+        date: '2025-07-15',
+        time: 'morning',
+        mood: 'Happy',
+        note: 'Had a great workout today!'
+      },
+      {
+        date: '2025-07-15',
+        time: 'evening',
+        mood: 'Sad',
+        note: 'Feeling a little down after watching a sad movie.'
+      },
+      {
+        date: '2025-07-14',
+        time: 'night',
+        mood: 'Tired',
+        note: 'Long workday but accomplished everything!'
+      },
+    ];
+
+    function displayLogs(logs) {
+      const container = document.getElementById('logEntries');
+      container.innerHTML = '';
+
+      if (logs.length === 0) {
+        container.innerHTML = '<p class="no-entry-msg">No logs found for selected filters.</p>';
+        return;
+      }
+
+      logs.forEach(log => {
+        container.innerHTML += `
+          <div class="entry">
+            <h5><span class="mood-badge">${log.mood}</span> - ${log.time.charAt(0).toUpperCase() + log.time.slice(1)}</h5>
+            <small class="text-muted">${log.date}</small>
+            <p class="mt-2">${log.note}</p>
+          </div>
+        `;
+      });
+    }
+
+    function applyFilter() {
+      const date = document.getElementById('filterDate').value;
+      const time = document.getElementById('filterTime').value;
+
+      const filtered = moodLogs.filter(log => {
+        const matchDate = date ? log.date === date : true;
+        const matchTime = time ? log.time === time : true;
+        return matchDate && matchTime;
+      });
+
+      displayLogs(filtered);
+    }
+
+    // Initial Display
+    displayLogs(moodLogs);
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sad Mood Quiz 😢</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(to bottom, #cce3f5, #e6f0fa);
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .quiz-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+    .option {
+      border: 2px solid #ddd;
+      padding: 10px 15px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .option:hover {
+      background: #d4eafd;
+      border-color: #007bff;
+    }
+    .selected {
+      background: #007bff;
+      color: #fff;
+      border-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container my-5">
+  <div class="text-center mb-4">
+    <h2 class="text-primary fw-bold">😢 Feeling Down? Take This Sad Mood Quiz</h2>
+    <p class="text-muted">We'll try to cheer you up, one question at a time 💙</p>
+  </div>
+
+  <div class="quiz-card mx-auto" style="max-width: 700px;">
+    <form id="quizForm">
+      <!-- Q1 -->
+      <div class="mb-4">
+        <h5>1. What's your vibe today?</h5>
+        <div class="option" onclick="selectOption(this, 'q1', 2)">A bit empty, honestly</div>
+        <div class="option" onclick="selectOption(this, 'q1', 1)">Just quiet and numb</div>
+        <div class="option" onclick="selectOption(this, 'q1', 0)">Totally okay, just curious</div>
+      </div>
+      <!-- Q2 -->
+      <div class="mb-4">
+        <h5>2. What would make you feel better right now?</h5>
+        <div class="option" onclick="selectOption(this, 'q2', 2)">A hug and a long walk</div>
+        <div class="option" onclick="selectOption(this, 'q2', 1)">Maybe some music or a nap</div>
+        <div class="option" onclick="selectOption(this, 'q2', 0)">Memes and ice cream</div>
+      </div>
+      <!-- Q3 -->
+      <div class="mb-4">
+        <h5>3. Pick a sad-but-sweet movie vibe:</h5>
+        <div class="option" onclick="selectOption(this, 'q3', 2)">Inside Out 🧠❤️</div>
+        <div class="option" onclick="selectOption(this, 'q3', 1)">Up 🎈</div>
+        <div class="option" onclick="selectOption(this, 'q3', 0)">Marley & Me 🐶</div>
+      </div>
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary px-4 mt-3">Get My MoodRx 💊</button>
+      </div>
+    </form>
+
+    <!-- Result Box -->
+    <div id="resultBox" class="mt-5 d-none text-center">
+      <h4 class="text-success fw-bold">✨ Here's your Mood Prescription:</h4>
+      <p id="resultText" class="fs-5 mt-3"></p>
+      <div class="mt-4">
+        <a href="mood.html" class="btn btn-outline-secondary me-2">⬅️ Back to Dashboard</a>
+        <button class="btn btn-outline-primary" onclick="location.reload()">🔄 Try Again</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let scores = { q1: 0, q2: 0, q3: 0 };
+
+  function selectOption(element, question, value) {
+    // Reset selection
+    const siblings = element.parentElement.querySelectorAll('.option');
+    siblings.forEach(opt => opt.classList.remove('selected'));
+
+    element.classList.add('selected');
+    scores[question] = value;
+  }
+
+  document.getElementById('quizForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    let total = scores.q1 + scores.q2 + scores.q3;
+    let resultText = "";
+
+    if (total >= 5) {
+      resultText = `💊 You need a deep emotional reset.<br><strong>Try:</strong> Lo-Fi Chill Playlist, breathing meditation, and a journaling prompt:<br>“What’s weighing your heart the most today?”`;
+    } else if (total >= 3) {
+      resultText = `💊 Light sadness detected.<br><strong>Try:</strong> Listen to "Weightless" by Marconi Union, drink warm tea, and draw something that expresses how you feel.`;
+    } else {
+      resultText = `✨ You're just a bit low today.<br><strong>Try:</strong> Dance to an upbeat song and call your best friend. You've got this! 💪`;
+    }
+
+    document.getElementById('quizForm').classList.add('d-none');
+    document.getElementById('resultBox').classList.remove('d-none');
+    document.getElementById('resultText').innerHTML = resultText;
+  });
+</script>
+
+</body>
+</html>

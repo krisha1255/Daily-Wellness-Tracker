@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Anxious Mood Quiz</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(to right, #ffe6e6, #fff8e1);
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .quiz-container {
+      max-width: 800px;
+      margin: auto;
+      padding: 40px;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+
+    .question {
+      font-size: 1.25rem;
+      margin-bottom: 20px;
+    }
+
+    .option {
+      border: 2px solid #ffc107;
+      padding: 12px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .option:hover {
+      background-color: #fff3cd;
+      color: #000;
+      transform: scale(1.02);
+    }
+
+    .option.selected {
+      background-color: #ffcc80;
+      color: #000;
+      border-color: #ff9800;
+    }
+
+    #result {
+      margin-top: 30px;
+      padding: 20px;
+      border-left: 6px solid #ff7043;
+      background: #fff3e0;
+      display: none;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container my-5">
+    <div class="quiz-container">
+      <h2 class="text-center mb-4 text-danger">😰 Anxious Mood Quiz</h2>
+
+      <div id="quiz">
+        <div class="question" id="q1">1. How do you feel when you're in a crowd?</div>
+        <div class="option" onclick="selectOption(this, 1)">I feel nervous and overwhelmed.</div>
+        <div class="option" onclick="selectOption(this, 1)">I try to stay calm but it’s hard.</div>
+        <div class="option" onclick="selectOption(this, 1)">I enjoy it.</div>
+
+        <div class="question mt-4" id="q2">2. What's your go-to reaction when you're anxious?</div>
+        <div class="option" onclick="selectOption(this, 2)">Overthink and panic.</div>
+        <div class="option" onclick="selectOption(this, 2)">Talk to someone or write it down.</div>
+        <div class="option" onclick="selectOption(this, 2)">Ignore and distract myself.</div>
+
+        <div class="question mt-4" id="q3">3. Which quote fits you best right now?</div>
+        <div class="option" onclick="selectOption(this, 3)">“I’m trying, but it’s all too much.”</div>
+        <div class="option" onclick="selectOption(this, 3)">“I know I’ll get through this.”</div>
+        <div class="option" onclick="selectOption(this, 3)">“I’m okay, just a bit tired.”</div>
+      </div>
+
+      <div class="text-center mt-4">
+        <button class="btn btn-warning px-4" onclick="showResult()">See My MoodRx</button>
+      </div>
+
+      <div id="result" class="mt-4">
+        <h4 class="text-orange mb-3">🧠 Your Calm-Down Prescription:</h4>
+        <ul>
+          <li><strong>🎧 Playlist:</strong> <a href="https://open.spotify.com/playlist/37i9dQZF1DX3rxVfibe1L0" target="_blank">Soothing Anxiety Relief Mix</a></li>
+          <li><strong>🧘‍♀️ Meditation:</strong> <a href="https://www.youtube.com/watch?v=MIr3RsUWrdo" target="_blank">5-Min Anxiety Breathing Exercise</a></li>
+          <li><strong>🔮 Fun Quiz:</strong> <a href="#">“What calming crystal matches your vibe?”</a></li>
+          <li><strong>📓 Prompt:</strong> "If your anxiety had a voice, what would it say today?"</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let answers = {};
+
+    function selectOption(element, questionNumber) {
+      // Deselect previous
+      let allOptions = document.querySelectorAll(`#q${questionNumber} ~ .option`);
+      allOptions.forEach(opt => opt.classList.remove('selected'));
+
+      // Select current
+      element.classList.add('selected');
+      answers[questionNumber] = element.textContent;
+    }
+
+    function showResult() {
+      const totalAnswered = Object.keys(answers).length;
+      if (totalAnswered < 3) {
+        alert("Please answer all questions to get your MoodRx.");
+        return;
+      }
+
+      document.getElementById("result").style.display = "block";
+      window.scrollTo({
+        top: document.getElementById("result").offsetTop - 100,
+        behavior: "smooth"
+      });
+    }
+  </script>
+</body>
+</html>
